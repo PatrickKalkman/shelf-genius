@@ -1,7 +1,7 @@
 from typing import TypeVar
 from PIL import Image
 from loguru import logger
-from ..shelf_genius_state import ShelfGeniusState
+from ..models.shelf_genius_state import ShelfGeniusState
 
 AgentState = TypeVar("AgentState", bound=ShelfGeniusState)
 
