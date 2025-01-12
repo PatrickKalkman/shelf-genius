@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [tool.hatch.version]
-path = "src/shelf-genius/__about__.py"
+path = "src/shelf_genius-genius/__about__.py"
 
 [dependency-groups]
 dev = [
@@ -31,7 +31,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/shelf-genius"]
+packages = ["src/shelf_genius"]
 
 [tool.ruff]
 # Enable the pycodestyle (`E`) and Pyflakes (`F`) rules by default
