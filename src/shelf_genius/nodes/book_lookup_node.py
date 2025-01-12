@@ -1,6 +1,6 @@
 from loguru import logger
 
-from ..models.shelf_genius_state import ShelfGeniusState
+from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 
 
 def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:

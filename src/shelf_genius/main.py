@@ -8,6 +8,7 @@ from loguru import logger
 from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 from shelf_genius.nodes.book_lookup_node import book_lookup_node
 from shelf_genius.nodes.book_recognition_node import book_recognition_node
+from shelf_genius.nodes.book_recommendation_node import book_recommendation_node
 from shelf_genius.nodes.process_image_node import process_image_node
 
 
@@ -17,12 +18,14 @@ def create_workflow(config: Dict[str, Any]) -> StateGraph:
     workflow.add_node("process_image_node", process_image_node)
     workflow.add_node("book_recognition_node", book_recognition_node)
     workflow.add_node("book_lookup_node", book_lookup_node)
+    workflow.add_node("book_recommendation_node", book_recommendation_node)
 
     workflow.set_entry_point("process_image_node")
 
     workflow.add_edge("process_image_node", "book_recognition_node")
     workflow.add_edge("book_recognition_node", "book_lookup_node")
-    workflow.add_edge("book_recognition_node", END)
+    workflow.add_edge("book_lookup_node", "book_recommendation_node")
+    workflow.add_edge("book_recommendation_node", END)
 
     return workflow.compile()
 
@@ -58,6 +61,7 @@ def main():
     }
     final_state = run_workflow(config)
     logger.info("Shelf Genius workflow completed.")
+    logger.info("Final state:", final_state)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ from typing import TypeVar
 
 from loguru import logger
 
-from ..models.shelf_genius_state import ShelfGeniusState
+from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 
 AgentState = TypeVar("AgentState", bound=ShelfGeniusState)
 
