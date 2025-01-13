@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAI
 from loguru import logger
@@ -25,11 +24,9 @@ def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
             "Image: {image_base64}",
         )
 
-        # Create the LLM chain
-        chain = LLMChain(llm=llm, prompt=prompt_template)
-
-        # Run the chain with the base64 encoded image
-        result = chain.run(image_base64=state["image_base64"])
+        # Create the chain and invoke it
+        chain = prompt_template | llm
+        result = chain.invoke({"image_base64": state["image_base64"]})  # Changed from run to invoke
 
         # Parse the result and update the state
         recognized_books = []
