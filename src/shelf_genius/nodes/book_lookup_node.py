@@ -4,7 +4,7 @@ from loguru import logger
 from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 
 
-def get_book_metadata(title: str, author: str) -> dict:
+def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
     """Retrieve book metadata from Google Books API."""
     try:
         query = f"intitle:{title}+inauthor:{author}"
