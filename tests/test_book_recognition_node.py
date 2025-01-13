@@ -1,5 +1,7 @@
-import pytest
 from unittest.mock import patch
+
+import pytest
+
 from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 from shelf_genius.nodes.book_recognition_node import book_recognition_node
 
