@@ -33,7 +33,7 @@ def process_image_node(state: AgentState) -> AgentState:
 
         with Image.open(image_path) as img:
             # Placeholder for actual image processing logic
-            logger.info(f"Image {image_path} loaded successfully.")
+            logger.info(f"Image {image_path} loaded successfully. {img.size}")
 
         state["current_step"] = "process_image_node"
 
