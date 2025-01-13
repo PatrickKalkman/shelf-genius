@@ -33,12 +33,22 @@ def test_process_valid_jpg_image(valid_jpg_image):
     state = ShelfGeniusState(image_path=str(valid_jpg_image))
     new_state = process_image_node(state)
     assert "error" not in new_state
+    assert new_state["image_width"] == 100
+    assert new_state["image_height"] == 100
+    assert new_state["image_format"] == "JPEG"
+    assert new_state["image_original_path"] == str(valid_jpg_image)
+    assert "image_base64" in new_state
 
 
 def test_process_valid_png_image(valid_png_image):
     state = ShelfGeniusState(image_path=str(valid_png_image))
     new_state = process_image_node(state)
     assert "error" not in new_state
+    assert new_state["image_width"] == 100
+    assert new_state["image_height"] == 100
+    assert new_state["image_format"] == "PNG"
+    assert new_state["image_original_path"] == str(valid_png_image)
+    assert "image_base64" in new_state
 
 
 def test_process_invalid_image(invalid_image):
