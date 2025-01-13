@@ -10,6 +10,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-24.04
+    env:
+      OPENAI_API_KEY=test_key
     strategy:
       matrix:
         python-version: ["3.10"]
