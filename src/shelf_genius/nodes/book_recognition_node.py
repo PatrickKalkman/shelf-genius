@@ -1,9 +1,12 @@
-from loguru import logger
-from langchain import OpenAI
+from dotenv import load_dotenv
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
+from langchain_openai import OpenAI
+from loguru import logger
 
 from shelf_genius.models.shelf_genius_state import ShelfGeniusState
+
+load_dotenv()
 
 
 def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
@@ -17,9 +20,9 @@ def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
         prompt_template = PromptTemplate(
             input_variables=["image_base64"],
             template="Analyze the following base64 encoded image and recognize the books in it. "
-                     "Report the title and author of each book in JSON format. "
-                     "If a book cannot be recognized, discard it. "
-                     "Image: {image_base64}"
+            "Report the title and author of each book in JSON format. "
+            "If a book cannot be recognized, discard it. "
+            "Image: {image_base64}",
         )
 
         # Create the LLM chain
