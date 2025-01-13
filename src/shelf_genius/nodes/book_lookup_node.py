@@ -4,7 +4,7 @@ from loguru import logger
 from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 
 
-def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
+def get_book_metadata(title: str, author: str) -> dict:
     """Retrieve book metadata from Google Books API."""
     try:
         query = f"intitle:{title}+inauthor:{author}"
@@ -20,6 +20,7 @@ def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
     except Exception as e:
         logger.error(f"Error fetching book metadata: {str(e)}")
         return {}
+    """Retrieve book metadata from Google Books API."""
     try:
         # TODO: Implement actual book lookup logic
         # This is a placeholder that will be expanded with actual book lookup
@@ -28,7 +29,9 @@ def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
         # Retrieve metadata for each recognized book
         book_metadata = []
         for book in state.get("recognized_books", []):
-            metadata = get_book_metadata(book["title"], book["author"])
+            title = book["title"]
+            author = book["author"]
+            metadata = get_book_metadata(title, author)
             if metadata:
                 book_metadata.append(metadata)
 
