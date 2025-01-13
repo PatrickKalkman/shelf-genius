@@ -34,7 +34,7 @@ def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
         # Parse the result and update the state
         recognized_books = []
         for book in result:
-            if "title" in book and "author" in book:
+            if "title" in book and "author" in book and book["title"] and book["author"]:
                 recognized_books.append(book)
 
         state["recognized_books"] = recognized_books
