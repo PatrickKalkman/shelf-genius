@@ -20,13 +20,13 @@ def get_book_metadata(title: str, author: str) -> dict:
     except Exception as e:
         logger.error(f"Error fetching book metadata: {str(e)}")
         return {}
+
+
+def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
     """Retrieve book metadata from Google Books API."""
     try:
-        # TODO: Implement actual book lookup logic
-        # This is a placeholder that will be expanded with actual book lookup
         logger.info("Starting book look up node...")
 
-        # Retrieve metadata for each recognized book
         book_metadata = []
         for book in state.get("recognized_books", []):
             title = book["title"]

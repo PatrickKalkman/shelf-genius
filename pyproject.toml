@@ -13,6 +13,7 @@ dependencies = [
     "pydantic>=2.6.1",
     "pillow>=10.2.0",
     "langchain-openai>=0.3.0",
+    "requests>=2.32.3",
 ]
 
 [tool.hatch.version]
