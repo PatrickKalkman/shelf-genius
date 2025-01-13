@@ -22,12 +22,10 @@ def unrecognizable_books_image():
 
 
 def mock_pipe(self, other):
-    chain = MagicMock()
-    chain.invoke = self.invoke
-    return chain
+    return other
 
 
-@patch("langchain.prompts.prompt.PromptTemplate.__or__", mock_pipe)
+@patch("langchain.prompts.prompt.PromptTemplate.__or__", new=mock_pipe)
 @patch("langchain_openai.OpenAI")
 def test_book_recognition_with_valid_image(mock_openai, valid_base64_image):
     # Set up mock chain response
