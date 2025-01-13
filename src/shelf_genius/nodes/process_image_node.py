@@ -1,3 +1,5 @@
+import base64
+import io
 from typing import TypeVar
 
 from loguru import logger
@@ -32,7 +34,18 @@ def process_image_node(state: AgentState) -> AgentState:
             raise ValueError("Unsupported image format. Only jpg and png are supported.")
 
         with Image.open(image_path) as img:
-            # Placeholder for actual image processing logic
+            # Extract image metadata and add to state
+            state["image_width"] = img.width
+            state["image_height"] = img.height
+            state["image_format"] = img.format
+            state["image_original_path"] = image_path
+
+            # Convert image to base64 and add to state
+            buffered = io.BytesIO()
+            img.save(buffered, format=img.format)
+            img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+            state["image_base64"] = img_base64
+
             logger.info(f"Image {image_path} loaded successfully. {img.size}")
 
         state["current_step"] = "process_image_node"
