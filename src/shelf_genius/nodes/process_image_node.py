@@ -1,5 +1,6 @@
-from typing import TypeVar
 import base64
+import io
+from typing import TypeVar
 
 from loguru import logger
 from PIL import Image
