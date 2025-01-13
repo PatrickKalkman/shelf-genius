@@ -26,7 +26,7 @@ def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
 
         # Create the chain and invoke it
         chain = prompt_template | llm
-        result = chain.invoke({"image_base64": state["image_base64"]})  # Changed from run to invoke
+        result = chain.invoke(state["image_base64"])
 
         # Parse the result and update the state
         recognized_books = []
