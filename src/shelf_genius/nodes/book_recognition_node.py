@@ -20,40 +20,45 @@ class BookInfo:
 
 
 BOOK_RECOGNITION_TEMPLATE = """You are a book recognition system analyzing bookshelf images.
-Focus only on clearly visible book spines or covers.
+Your task is to identify books from the image and return ONLY a valid JSON response.
 
 Image (base64 encoded): {image_base64}
 
-Return a strict JSON response with exactly these fields:
+RESPONSE FORMAT REQUIREMENTS:
+1. You must return ONLY valid JSON
+2. The JSON must contain a "books" array
+3. Each book in the array MUST have both "title" and "author" fields
+4. Use simple quotes for strings, never nested quotes
+5. Remove special characters from titles and authors
+6. Return empty books array if no books are clearly visible
+
+REQUIRED JSON STRUCTURE:
 {{
     "books": [
         {{
-            "title": "The exact book title",
-            "author": "The book author"
+            "title": "string",
+            "author": "string"
         }}
     ]
 }}
 
-IMPORTANT FORMATTING RULES:
-1. Never use nested quotes in strings
-2. Only include books you can clearly identify
-3. Both title and author must be present
-4. Remove any special characters from titles and authors
-5. If unsure about a book, exclude it entirely
+If you cannot identify both title AND author for a book, do not include it.
+Return this if no books are clearly identifiable:
+{{
+    "books": []
+}}
 
-Example with good formatting:
+Example of valid response:
 {{
     "books": [
         {{
             "title": "The Great Gatsby",
             "author": "F. Scott Fitzgerald"
-        }},
-        {{
-            "title": "To Kill a Mockingbird",
-            "author": "Harper Lee"
         }}
     ]
-}}"""
+}}
+
+RESPOND ONLY WITH VALID JSON - NO OTHER TEXT OR EXPLANATION"""
 
 
 def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
