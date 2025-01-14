@@ -94,13 +94,13 @@ def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
             logger.info(f"Successfully recognized {len(recognized_books)} books")
             state["recognized_books"] = recognized_books
 
+            state["current_step"] = "book_recognition_node"
+            return state
+
         except Exception as e:
             logger.error(f"Error processing image: {str(e)}")
             state["recognized_books"] = []
             state["error"] = f"Failed to process image: {str(e)}"
-
-        state["current_step"] = "book_recognition_node"
-        return state
 
     except Exception as e:
         logger.error(f"Error in book recognition node: {str(e)}")
