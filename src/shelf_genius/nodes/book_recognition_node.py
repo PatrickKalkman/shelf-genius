@@ -86,16 +86,21 @@ def book_recognition_node(state: ShelfGeniusState) -> ShelfGeniusState:
             result = recognition_chain.invoke({"image_base64": state["image_base64"]})
 
             logger.info(result)
+            if not isinstance(result, dict) or "books" not in result:
+                raise ValueError("Invalid response format from LLM")
+
             # Convert dictionary results to BookInfo objects
             recognized_books = [
-                BookInfo(title=book["title"], author=book["author"]) for book in result.get("books", [])
+                BookInfo(title=book["title"], author=book["author"]) for book in result["books"]
             ]
 
             logger.info(f"Successfully recognized {len(recognized_books)} books")
-            state["recognized_books"] = recognized_books
-
-            state["current_step"] = "book_recognition_node"
-            return state
+            # Ensure we're creating a new state dict with the recognized books
+            return {
+                **state,
+                "recognized_books": recognized_books,
+                "current_step": "book_recognition_node"
+            }
 
         except Exception as e:
             logger.error(f"Error processing image: {str(e)}")

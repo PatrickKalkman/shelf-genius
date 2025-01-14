@@ -26,7 +26,9 @@ def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
     """Retrieve book metadata from Google Books API."""
     try:
         logger.info("Starting book look up node...")
-        logger.info(state.get("recognized_books", []))
+        recognized_books = state.get("recognized_books", [])
+        logger.info(f"Found {len(recognized_books)} recognized books in state")
+        logger.info(f"Recognized books: {recognized_books}")
         book_metadata = []
         for book in state.get("recognized_books", []):
             title = book.title
