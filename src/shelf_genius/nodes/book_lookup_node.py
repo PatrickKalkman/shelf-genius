@@ -29,8 +29,8 @@ def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
         logger.info(state.get("recognized_books", []))
         book_metadata = []
         for book in state.get("recognized_books", []):
-            title = book["title"]
-            author = book["author"]
+            title = book.title
+            author = book.author
             logger.info(f"Looking up book: {title} by {author}")
             metadata = get_book_metadata(title, author)
             if metadata:
