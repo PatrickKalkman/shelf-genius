@@ -7,7 +7,9 @@ from shelf_genius.models.shelf_genius_state import ShelfGeniusState
 def get_book_metadata(title: str, author: str) -> dict:
     """Retrieve book metadata from Google Books API."""
     try:
-        query = f"intitle:{title}+inauthor:{author}"
+        query = f"intitle:{title}"
+        if author:
+            query += f"+inauthor:{author}"
         response = requests.get(
             "https://www.googleapis.com/books/v1/volumes",
             params={"q": query},
