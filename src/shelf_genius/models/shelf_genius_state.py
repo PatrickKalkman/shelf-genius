@@ -1,4 +1,11 @@
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, TypedDict
+
+
+@dataclass
+class BookInfo:
+    title: str
+    author: str
 
 
 class ShelfGeniusState(TypedDict, total=False):
@@ -10,8 +17,9 @@ class ShelfGeniusState(TypedDict, total=False):
     image_format: str
     image_original_path: str
     image_base64: str
-    # Placeholder for state fields - to be expanded later
-    conversation_history: List[Dict[str, Any]]
+    recognized_books: List[BookInfo]
+    book_metadata: List[Dict[str, Any]]
+
     current_step: str
     error: Optional[str]
 

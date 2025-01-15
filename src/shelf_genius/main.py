@@ -35,6 +35,7 @@ async def run_workflow_async(config: Dict[str, Any]) -> ShelfGeniusState:
     initial_state: ShelfGeniusState = {
         "errors": [],
         "warnings": [],
+        "image_path": config["image_path"],
     }
 
     app = create_workflow(config)
@@ -57,7 +58,7 @@ def main():
 
     logger.info("Starting Shelf Genius workflow...")
     config = {
-        "image_path": "path/to/image.jpg",
+        "image_path": "./test_images/test_shelve1.jpg",
     }
     final_state = run_workflow(config)
     logger.info("Shelf Genius workflow completed.")
