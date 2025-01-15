@@ -8,7 +8,8 @@ RECOMMENDATION_TEMPLATE = """You are a book recommendation system analyzing a us
 Based on the books they own and the detailed metadata about these books, recommend ONE NEW book they might enjoy.
 IMPORTANT:
 - Do NOT recommend any books that are already on their shelf
-- Do NOT recommend books that are too similar to what they already have (e.g., if they have a unit testing book, don't recommend other testing books)
+- Do NOT recommend books that are too similar to what they already have
+- (e.g., if they have a unit testing book, don't recommend other testing books)
 - Look for interesting connections between their diverse interests to recommend something unique
 - Consider recommending books that bridge multiple interests shown in their collection
 
@@ -130,9 +131,7 @@ def book_recommendation_node(state: ShelfGeniusState) -> ShelfGeniusState:
         state["book_recommendation"] = result["recommendation"]
         state["current_step"] = "book_recommendation_node"
 
-        logger.info(
-            f"Successfully generated book recommendation: {result['recommendation']['title']} by {result['recommendation']['author']}"
-        )
+        logger.info(f"Recommendation: {result['recommendation']['title']} by {result['recommendation']['author']}")
 
         return state
 
