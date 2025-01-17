@@ -1,5 +1,6 @@
 # Shelf Genius: Your AI-Powered Book Recommendation Companion
 
+![Shelf Genius Cover](cover.jpg)
 
 
 [![GitHub Actions Status](https://img.shields.io/github/actions/workflow/status/PatrickKalkman/shelf-genius/ci.yml?branch=master)](https://github.com/PatrickKalkman/shelf-genius/actions)
