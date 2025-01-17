@@ -1,7 +1,9 @@
 import asyncio
+import argparse
 from typing import Any, Dict
 
 from dotenv import load_dotenv
+import sys
 from langgraph.graph import END, StateGraph
 from loguru import logger
 
@@ -56,9 +58,19 @@ def run_workflow(config: Dict[str, Any]) -> ShelfGeniusState:
 def main():
     load_dotenv()
 
+    parser = argparse.ArgumentParser(description='Shelf Genius - Book Recognition and Recommendation System')
+    parser.add_argument('image', type=str, help='Path to the bookshelf image')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose logging')
+    
+    args = parser.parse_args()
+
+    if args.verbose:
+        logger.remove()
+        logger.add(sys.stderr, level="DEBUG")
+    
     logger.info("Starting Shelf Genius workflow...")
     config = {
-        "image_path": "./test_images/test_shelve1.jpg",
+        "image_path": args.image,
     }
     final_state = run_workflow(config)
     logger.info("Shelf Genius workflow completed.")
