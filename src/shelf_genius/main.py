@@ -64,9 +64,10 @@ def main():
     
     args = parser.parse_args()
 
-    if args.verbose:
-        logger.remove()
-        logger.add(sys.stderr, level="DEBUG")
+    # Set default logging level
+    logger.remove()
+    log_level = "DEBUG" if args.verbose else "INFO"
+    logger.add(sys.stderr, level=log_level)
     
     logger.info("Starting Shelf Genius workflow...")
     config = {
