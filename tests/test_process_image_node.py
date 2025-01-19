@@ -56,3 +56,21 @@ def test_process_invalid_image(invalid_image):
     new_state = process_image_node(state)
     assert "error" in new_state
     assert new_state["error"] == "Image processing failed: Unsupported image format. Only jpg and png are supported."
+
+
+def test_process_image_node(valid_jpg_image):
+    state = ShelfGeniusState(image_path=str(valid_jpg_image))
+    new_state = process_image_node(state)
+    assert "error" not in new_state
+    assert new_state["image_width"] == 100
+    assert new_state["image_height"] == 100
+    assert new_state["image_format"] == "JPEG"
+    assert new_state["image_original_path"] == str(valid_jpg_image)
+    assert "image_base64" in new_state
+
+
+def test_process_image_node_invalid_image(invalid_image):
+    state = ShelfGeniusState(image_path=str(invalid_image))
+    new_state = process_image_node(state)
+    assert "error" in new_state
+    assert new_state["error"] == "Image processing failed: Unsupported image format. Only jpg and png are supported."
