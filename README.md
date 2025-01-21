@@ -13,6 +13,8 @@
 
 Ever stared at your bookshelf, wishing it could tell you what to read next? Shelf Genius transforms a simple photo of your bookshelf into personalized reading recommendations using the power of AI. By analyzing your current collection and understanding the subtle connections between books, it suggests your next perfect read – no more endless scrolling through generic recommendations!
 
+Read more about the project in my [Medium article](https://medium.com/ai-advances/unlock-your-next-read-ai-agent-powered-book-recommendations-from-your-bookshelf-8ba059435fba).
+
 ## ✨ Key Features
 
 - **Smart Book Detection**: Uses advanced AI vision to identify books from a simple photo of your bookshelf
