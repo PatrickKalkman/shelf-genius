@@ -73,6 +73,13 @@ def format_metadata(state: ShelfGeniusState) -> str:
     return "\n".join(formatted)
 
 
+def create_recommendation_prompt(state: ShelfGeniusState) -> str:
+    """Create the recommendation prompt using the template and state data."""
+    book_list = format_book_list(state)
+    metadata = format_metadata(state)
+    return RECOMMENDATION_TEMPLATE.format(book_list=book_list, book_metadata=metadata)
+
+
 def book_recommendation_node(state: ShelfGeniusState) -> ShelfGeniusState:
     """Generate a book recommendation based on the user's current books."""
     try:
@@ -81,13 +88,11 @@ def book_recommendation_node(state: ShelfGeniusState) -> ShelfGeniusState:
         # Check if we have the necessary data
         if not state.get("recognized_books"):
             raise ValueError("No recognized books found in state")
-
-        # Format the books and metadata for the prompt
-        book_list = format_book_list(state)
-        metadata = format_metadata(state)
+        if not state.get("book_metadata"):
+            raise ValueError("No book metadata found in state")
 
         # Prepare the prompt with the formatted data
-        prompt = RECOMMENDATION_TEMPLATE.format(book_list=book_list, book_metadata=metadata)
+        prompt = create_recommendation_prompt(state)
 
         # Initialize OpenAI client
         client = OpenAI()
