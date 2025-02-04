@@ -24,8 +24,28 @@ def get_book_metadata(title: str, author: str) -> dict:
         return {}
 
 
+def get_book_metadata_from_openlibrary(title: str, author: str) -> dict:
+    """Retrieve book metadata from Open Library API."""
+    try:
+        query = f"title={title}"
+        if author:
+            query += f"&author={author}"
+        response = requests.get(
+            "https://openlibrary.org/search.json",
+            params={"q": query},
+        )
+        response.raise_for_status()
+        docs = response.json().get("docs", [])
+        if docs:
+            return docs[0]
+        return {}
+    except Exception as e:
+        logger.error(f"Error fetching book metadata from Open Library: {str(e)}")
+        return {}
+
+
 def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
-    """Retrieve book metadata from Google Books API."""
+    """Retrieve book metadata from Google Books API and Open Library API."""
     try:
         logger.info("Starting book look up node...")
         recognized_books = state.get("recognized_books", [])
@@ -38,9 +58,11 @@ def book_lookup_node(state: ShelfGeniusState) -> ShelfGeniusState:
                 logger.info(f"Looking up book: {title} by {author}")
             else:
                 logger.info(f"Looking up book: {title}")
-            metadata = get_book_metadata(title, author)
-            if metadata:
-                book_metadata.append(metadata)
+            metadata_google = get_book_metadata(title, author)
+            metadata_openlibrary = get_book_metadata_from_openlibrary(title, author)
+            merged_metadata = {**metadata_google, **metadata_openlibrary}
+            if merged_metadata:
+                book_metadata.append(merged_metadata)
 
         # Update state with processed information
         state["book_metadata"] = book_metadata
